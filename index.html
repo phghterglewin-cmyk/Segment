@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gift Segment Market</title>
+    <title>Gift Portal Market</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
     <div class="ambient ambient--one"></div>
@@ -19,50 +20,77 @@
     <header class="topbar glass">
       <div class="brand">
         <span class="brand__logo">✦</span>
-        <span>Gift Portal</span>
+        <div>
+          <span>Gift Portal</span>
+          <p class="brand__subtitle">Mini App Marketplace</p>
+        </div>
       </div>
-      <button class="btn btn--ghost">Подключить Telegram</button>
+
+      <div class="user-box" id="userBox">
+        <p class="user-box__status" id="authStatus">Проверяем Telegram-аккаунт…</p>
+        <p class="user-box__name" id="userName">Гость</p>
+      </div>
     </header>
 
     <main>
       <section class="hero">
-        <p class="hero__badge">Telegram Mini App</p>
-        <h1>Маркет подарков, который выглядит премиально</h1>
+        <p class="hero__badge">Telegram Auto Login + Marketplace</p>
+        <h1>Продажа подарков с автологином и моментальным пополнением</h1>
         <p class="hero__text">
-          Люди выставляют Telegram-подарки на продажу, ты автоматически получаешь
-          комиссию с каждой сделки. Быстрый, безопасный и визуально мощный интерфейс.
+          Если пользователь уже в Telegram, Mini App автоматически авторизует его по
+          Telegram-аккаунту. Продавай подарки, запускай сделки и зарабатывай комиссию с
+          каждой операции.
         </p>
-        <div class="hero__cta">
-          <button class="btn btn--primary">Запустить площадку</button>
-          <button class="btn btn--secondary">Посмотреть демо</button>
-        </div>
-        <div class="stats glass">
-          <article>
-            <h3>15 200+</h3>
-            <p>Активных лотов</p>
-          </article>
-          <article>
-            <h3>7%</h3>
-            <p>Комиссия платформы</p>
-          </article>
-          <article>
-            <h3>2.4 мин</h3>
-            <p>Среднее время сделки</p>
-          </article>
-        </div>
       </section>
 
-      <section class="cards" id="market"></section>
+      <section class="dashboard">
+        <article class="wallet glass">
+          <h2>Баланс</h2>
+          <p class="wallet__value"><span id="walletValue">0</span> TON</p>
+          <p class="wallet__hint">Пополнение нужно для моментальной покупки подарков.</p>
+          <div class="wallet__topup">
+            <input id="topupInput" type="number" min="1" step="1" value="25" />
+            <button class="btn btn--primary" id="topupBtn">Пополнить</button>
+          </div>
+          <p class="wallet__note" id="walletNote">—</p>
+        </article>
 
-      <section class="panel glass">
-        <h2>Как ты зарабатываешь</h2>
-        <ol>
-          <li>Продавец размещает подарок и задаёт цену.</li>
-          <li>Покупатель оплачивает в один клик через Mini App.</li>
-          <li>Система удерживает твою комиссию и проводит безопасный обмен.</li>
-        </ol>
+        <article class="commission glass">
+          <h2>Твоя комиссия</h2>
+          <p class="commission__value">7%</p>
+          <ul>
+            <li>Берётся автоматически с каждой продажи.</li>
+            <li>Показывается прозрачно в карточке сделки.</li>
+            <li>Масштабируется без ручной модерации.</li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="marketplace">
+        <div class="marketplace__head">
+          <h2>Маркетплейс подарков</h2>
+          <button class="btn btn--secondary" id="sellDemoBtn">Выставить демо-лот</button>
+        </div>
+        <div class="cards" id="market"></div>
       </section>
     </main>
+
+    <template id="cardTemplate">
+      <article class="card">
+        <div class="card__top">
+          <span class="card__emoji"></span>
+          <span class="card__rarity"></span>
+        </div>
+        <h3 class="card__title"></h3>
+        <div class="card__price"></div>
+        <p class="card__seller"></p>
+        <div class="card__meta">
+          <span class="card__likes"></span>
+          <span class="card__fee"></span>
+        </div>
+        <button class="btn btn--ghost card__buy">Купить</button>
+      </article>
+    </template>
 
     <script src="script.js"></script>
   </body>
